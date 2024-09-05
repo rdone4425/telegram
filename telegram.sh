@@ -86,10 +86,11 @@ install_dependencies() {
 
 # 运行telegram.py脚本
 run_script() {
-    if python3 telegram.py; then
+    echo "正在运行telegram.py脚本..."
+    if timeout 60 python3 telegram.py; then
         echo "telegram.py脚本已成功运行"
     else
-        echo "运行telegram.py脚本时出错，请检查脚本文件。"
+        echo "运行telegram.py脚本时出错或超时，请检查脚本文件。"
         exit 1
     fi
 }
