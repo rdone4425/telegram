@@ -62,7 +62,7 @@ else
 fi
 
 # 进入解压后的目录
-cd "${SAVE_DIR}/telegram-master"
+cd "${SAVE_DIR}/telegram-main"
 
 # 创建并激活虚拟环境
 python3 -m venv venv
