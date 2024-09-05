@@ -9,13 +9,10 @@ SAVE_DIR="/root/telagram"
 # 创建保存目录
 mkdir -p "${SAVE_DIR}"
 
-# 使用git命令克隆整个仓库
-git clone "${GITHUB_REPO_URL}.git" "${SAVE_DIR}"
-
-echo "仓库已下载到 ${SAVE_DIR}"
-
-# 赋予自身执行权限
-chmod +x "${0}"
-
-# 以root用户身份运行脚本
-sudo "${0}"
+# 检查git命令是否成功执行
+if git clone "${GITHUB_REPO_URL}.git" "${SAVE_DIR}"; then
+    echo "仓库已成功下载到 ${SAVE_DIR}"
+else
+    echo "克隆仓库时出错，请检查URL和目录权限。"
+    exit 1
+fi
