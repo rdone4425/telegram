@@ -18,7 +18,7 @@ if ! command -v git &> /dev/null; then
 fi
 
 # 检查并安装Python
-if ! command -v python &> /dev/null; then
+if ! command -v python3 &> /dev/null; then
     echo "Python未安装，正在安装Python..."
     if sudo apt-get update && sudo apt-get install -y python3 python3-pip python3-venv; then
         echo "Python已成功安装"
@@ -43,7 +43,11 @@ fi
 cd "${SAVE_DIR}"
 
 # 创建并激活虚拟环境
-python -m venv venv
+python3 -m venv venv
+if [ ! -f venv/bin/activate ]; then
+    echo "虚拟环境创建失败，请检查Python安装。"
+    exit 1
+fi
 source venv/bin/activate
 
 # 安装依赖库
@@ -55,7 +59,7 @@ else
 fi
 
 # 运行telegram.py脚本
-if python telegram.py; then
+if python3 telegram.py; then
     echo "telegram.py脚本已成功运行"
 else
     echo "运行telegram.py脚本时出错，请检查脚本文件。"
