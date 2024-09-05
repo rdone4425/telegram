@@ -94,6 +94,16 @@ run_script() {
     fi
 }
 
+# 删除重复的telegram.sh脚本
+remove_duplicate_scripts() {
+    duplicate_scripts=$(find /root -maxdepth 1 -name "telegram.sh" | wc -l)
+    if [ "$duplicate_scripts" -gt 1 ]; then
+        echo "检测到多个telegram.sh脚本，将删除重复的脚本。"
+        find /root -maxdepth 1 -name "telegram.sh" -not -path "/root/telegram.sh" -exec rm -f {} \;
+        echo "重复的telegram.sh脚本已删除。"
+    fi
+}
+
 # 主函数
 main() {
     install_git
@@ -104,6 +114,7 @@ main() {
     create_activate_venv
     install_dependencies
     run_script
+    remove_duplicate_scripts
 }
 
 main
