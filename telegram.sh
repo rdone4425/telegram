@@ -9,10 +9,29 @@ SAVE_DIR="/root/telagram"
 # 创建保存目录
 mkdir -p "${SAVE_DIR}"
 
-# 检查git命令是否成功执行
+# 克隆仓库
 if git clone "${GITHUB_REPO_URL}.git" "${SAVE_DIR}"; then
     echo "仓库已成功下载到 ${SAVE_DIR}"
 else
     echo "克隆仓库时出错，请检查URL和目录权限。"
+    exit 1
+fi
+
+# 进入保存目录
+cd "${SAVE_DIR}"
+
+# 安装依赖库
+if pip install -r requirements.txt; then
+    echo "所有依赖库已成功安装"
+else
+    echo "安装依赖库时出错，请检查requirements.txt文件。"
+    exit 1
+fi
+
+# 运行telegram.py脚本
+if python telegram.py; then
+    echo "telegram.py脚本已成功运行"
+else
+    echo "运行telegram.py脚本时出错，请检查脚本文件。"
     exit 1
 fi
