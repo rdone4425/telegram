@@ -6,15 +6,26 @@ GITHUB_REPO_URL="https://github.com/rdone4425/telegram"
 # 定义下载文件的保存路径（绝对路径）
 SAVE_DIR="/root/telagram"
 
-# 检查Git和Python是否已安装
+# 检查并安装Git
 if ! command -v git &> /dev/null; then
-    echo "Git未安装，请先安装Git。"
-    exit 1
+    echo "Git未安装，正在安装Git..."
+    if sudo apt-get update && sudo apt-get install -y git; then
+        echo "Git已成功安装"
+    else
+        echo "安装Git时出错，请检查系统安装源。"
+        exit 1
+    fi
 fi
 
+# 检查并安装Python
 if ! command -v python &> /dev/null; then
-    echo "Python未安装，请先安装Python。"
-    exit 1
+    echo "Python未安装，正在安装Python..."
+    if sudo apt-get update && sudo apt-get install -y python3 python3-pip python3-venv; then
+        echo "Python已成功安装"
+    else
+        echo "安装Python时出错，请检查系统安装源。"
+        exit 1
+    fi
 fi
 
 # 创建保存目录
