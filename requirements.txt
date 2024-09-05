@@ -1,4 +1,3 @@
-sqlite3
-requests
-datetime
-logging
+python3 requests
+python3 datetime
+python3 logging
